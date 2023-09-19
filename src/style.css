@@ -43,8 +43,10 @@ button {
   cursor: pointer;
   width: 240px;
   height: 240px;
+  margin: 0;
+  padding: 0;
 }
-div.inplay {
+div.sub-board {
   display: inline-block;
   box-sizing: border-box;
   background-color: #70807a;

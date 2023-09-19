@@ -58,7 +58,7 @@ fn Tile(cx: Scope, pos: Pos) -> Element {
 #[inline_props]
 fn Tile2(cx: Scope, pos: Pos) -> Element {
     cx.render(rsx! {
-            div{ class:"inplay {pos.class()}",
+            div{ class:"sub-board {pos.class()}",
                 SubTile{pos: Pos::LU}
                 SubTile{pos: Pos::MU}
                 SubTile{pos: Pos::RU}
