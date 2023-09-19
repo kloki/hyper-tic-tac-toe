@@ -1,0 +1,44 @@
+@import url("https://fonts.cdnfonts.com/css/teroxia-robotic-typeface");
+* {
+  font-family: "Teroxia Demo", sans-serif;
+}
+body {
+  background-color: #70807a;
+  color: #d35fe8;
+  font-size: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+span.highlight {
+  color: #0abf80;
+  font-size: 300%;
+}
+header {
+  background-color: #47524e;
+  text-align: center;
+  font-size: 100%;
+}
+
+div.content {
+  display: flex;
+  justify-content: center;
+}
+
+div.board {
+  background-color: #ffffff;
+  font-size: 500%;
+  height: 700px;
+  width: 700px;
+}
+
+button {
+  border: none;
+  background-color: #ebe4bc;
+  color: #faf6dc;
+  text-align: center;
+  text-decoration: none;
+  font-size: 100%;
+  background-color: #98b9ab;
+  cursor: pointer;
+}
