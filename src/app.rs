@@ -37,7 +37,7 @@ pub fn App(cx: Scope) -> Element {
             style { include_str!("../src/style.css") }
             header { span{ class:"highlight","HYPER"} " tic-tac-toe" }
             div { class: "content", div {class: "board",
-                Tile2{pos: Pos::LU}
+                Tile{pos: Pos::LU}
                 Tile{pos: Pos::MU}
                 Tile{pos: Pos::RU}
                 Tile{pos: Pos::LM}
@@ -53,10 +53,6 @@ pub fn App(cx: Scope) -> Element {
 
 #[inline_props]
 fn Tile(cx: Scope, pos: Pos) -> Element {
-    cx.render(rsx! {button {class:pos.class(), "X" }})
-}
-#[inline_props]
-fn Tile2(cx: Scope, pos: Pos) -> Element {
     cx.render(rsx! {
             div{ class:"sub-board {pos.class()}",
                 SubTile{pos: Pos::LU}
@@ -74,5 +70,5 @@ fn Tile2(cx: Scope, pos: Pos) -> Element {
 
 #[inline_props]
 fn SubTile(cx: Scope, pos: Pos) -> Element {
-    cx.render(rsx! {button {class:"sub {pos.class()}" , "X" }})
+    cx.render(rsx! {div {class:"sub {pos.class()}" , "X" }})
 }
