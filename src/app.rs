@@ -11,7 +11,7 @@ pub fn App(cx: Scope) -> Element {
     cx.render(rsx! {
         div {
             style { include_str!("../src/style.css") }
-            header {
+            div { class: "banner", onclick: move |_| board.set(Board::new()),
                 span { class: "highlight", "HYPER" }
                 " tic-tac-toe"
             }
@@ -41,11 +41,9 @@ fn Message<'a>(cx: Scope, board: &'a UseRef<Board>) -> Element {
     if b.winner.resolved() {
         return cx.render(rsx! {
             div { class: "message",
-                div {
-                    "Player "
-                    span { class: "{b.winner.class()}", "{b.winner.value()}" }
-                    " is the winner!!!"
-                }
+                "Player "
+                span { class: "{b.winner.class()}", "{b.winner.value()}" }
+                " is the winner!!!"
             }
         });
     }

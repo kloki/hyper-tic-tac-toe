@@ -14,13 +14,15 @@ span.highlight {
   color: #0abf80;
   font-size: 300%;
 }
-header {
+div.banner {
   background-color: #47524e;
   text-align: center;
   font-size: 100%;
+  cursor: pointer;
 }
 
 div.content {
+  width: 820px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -31,7 +33,7 @@ div.center {
 }
 
 div.message {
-  diplay: flex-inline;
+  diplay: flex;
   flex-direction: row;
   justify-content: space-between;
   background-color: #70807a;
@@ -39,15 +41,11 @@ div.message {
   font-size: 200%;
   margin: 5px;
 }
-div.reset {
-  color: #70807a;
-  background-color: #47524e;
-}
 
 div.board {
   font-size: 500%;
-  height: 720px;
-  width: 720px;
+  height: 820px;
+  width: 820px;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(3, 1fr);
