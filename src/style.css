@@ -26,7 +26,6 @@ div.content {
 }
 
 div.board {
-  background-color: #ffffff;
   font-size: 500%;
   height: 720px;
   width: 720px;
@@ -43,17 +42,15 @@ div.sub-board {
   grid-template-rows: repeat(3, 1fr);
   grid-column-gap: 0px;
   grid-row-gap: 0px;
-  box-sizing: border-box;
   background-color: #70807a;
   border-color: #47524e;
   border-style: solid;
   width: 240px;
-  padding: 15px;
   height: 240px;
+  padding: 15px;
 }
 
 div.sub {
-  padding: 5px;
   background-color: #70807a;
   border-color: #47524e;
   border-style: solid;
@@ -61,10 +58,11 @@ div.sub {
   color: #faf6dc;
   text-align: center;
   font-size: 40px;
-  width: 70px;
-  height: 70px;
+  width: 80px;
+  height: 80px;
   cursor: pointer;
 }
+
 .lu {
   border-top-width: 0px;
   border-bottom-width: 5px;
