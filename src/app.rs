@@ -15,23 +15,57 @@ pub fn App(cx: Scope) -> Element {
                 span { class: "highlight", "HYPER" }
                 " tic-tac-toe"
             }
-            div { class: "content",
-                div { class: "board",
-                    Tile { pos: Pos::LU, board: board }
-                    Tile { pos: Pos::MU, board: board }
-                    Tile { pos: Pos::RU, board: board }
-                    Tile { pos: Pos::LM, board: board }
-                    Tile { pos: Pos::MM, board: board }
-                    Tile { pos: Pos::RM, board: board }
-                    Tile { pos: Pos::LD, board: board }
-                    Tile { pos: Pos::MD, board: board }
-                    Tile { pos: Pos::RD, board: board }
+            div { class: "center",
+                div { class: "content",
+                    Message { board: board }
+                    div { class: "board",
+                        Tile { pos: Pos::LU, board: board }
+                        Tile { pos: Pos::MU, board: board }
+                        Tile { pos: Pos::RU, board: board }
+                        Tile { pos: Pos::LM, board: board }
+                        Tile { pos: Pos::MM, board: board }
+                        Tile { pos: Pos::RM, board: board }
+                        Tile { pos: Pos::LD, board: board }
+                        Tile { pos: Pos::MD, board: board }
+                        Tile { pos: Pos::RD, board: board }
+                    }
                 }
             }
         }
     })
 }
 
+#[inline_props]
+fn Message<'a>(cx: Scope, board: &'a UseRef<Board>) -> Element {
+    let b = board.read();
+    if b.winner.resolved() {
+        return cx.render(rsx! {
+            div { class: "message",
+                div {
+                    "Player "
+                    span { class: "{b.winner.class()}", "{b.winner.value()}" }
+                    " is the winner!!!"
+                }
+            }
+        });
+    }
+
+    if b.tied() {
+        return cx.render(rsx! {
+            div { class: "message", div { "No possibbe moves. Its a tie!" } }
+        });
+    }
+
+    cx.render(rsx! {
+        div { class: "message",
+            div {
+                "Player "
+                span { class: "{b.current.class()}", "{b.current.value()}" }
+                "'s turn"
+            }
+        }
+    })
+}
 #[inline_props]
 fn Tile<'a>(cx: Scope, pos: Pos, board: &'a UseRef<Board>) -> Element {
     let b = board.read();

@@ -22,7 +22,26 @@ header {
 
 div.content {
   display: flex;
+  flex-direction: column;
   justify-content: center;
+}
+div.center {
+  display: flex;
+  justify-content: center;
+}
+
+div.message {
+  diplay: flex-inline;
+  flex-direction: row;
+  justify-content: space-between;
+  background-color: #70807a;
+  color: #47524e;
+  font-size: 200%;
+  margin: 5px;
+}
+div.reset {
+  color: #70807a;
+  background-color: #47524e;
 }
 
 div.board {
@@ -120,6 +139,14 @@ div.sub {
   border-bottom-width: 0px;
   border-left-width: 5px;
   border-right-width: 0px;
+}
+
+.player_a {
+  color: #d35fe8;
+}
+
+.player_b {
+  color: #0abf80;
 }
 
 div.player_a {

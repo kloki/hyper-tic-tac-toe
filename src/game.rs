@@ -57,8 +57,8 @@ impl Player {
     }
     pub fn value(&self) -> &str {
         match self {
-            Player::A => "O",
-            Player::B => "X",
+            Player::A => "X",
+            Player::B => "O",
             Player::Open => " ",
         }
     }
@@ -111,14 +111,14 @@ impl SubBoard {
                 return true;
             }
         }
-        if self.tiles[0] != Player::Open
+        if self.tiles[0].resolved()
             && self.tiles[4] == self.tiles[0]
             && self.tiles[8] == self.tiles[0]
         {
             self.winner = self.tiles[0];
             return true;
         }
-        if self.tiles[2] != Player::Open
+        if self.tiles[2].resolved()
             && self.tiles[4] == self.tiles[2]
             && self.tiles[6] == self.tiles[2]
         {
@@ -155,7 +155,7 @@ impl Board {
         for i in 0..3 {
             let index = i * 3;
             //horizontal
-            if self.boards[index].winner != Player::Open
+            if self.boards[index].winner.resolved()
                 && self.boards[index + 1].winner == self.boards[index].winner
                 && self.boards[index].winner == self.boards[index + 2].winner
             {
@@ -164,7 +164,7 @@ impl Board {
             }
             //vertial
             let index = i;
-            if self.boards[index].winner != Player::Open
+            if self.boards[index].winner.resolved()
                 && self.boards[index + 3].winner == self.boards[index].winner
                 && self.boards[index].winner == self.boards[index + 6].winner
             {
@@ -172,14 +172,14 @@ impl Board {
                 return true;
             }
         }
-        if self.boards[0].winner != Player::Open
+        if self.boards[0].winner.resolved()
             && self.boards[4].winner == self.boards[0].winner
             && self.boards[8].winner == self.boards[0].winner
         {
             self.winner = self.boards[0].winner;
             return true;
         }
-        if self.boards[2].winner != Player::Open
+        if self.boards[2].winner.resolved()
             && self.boards[4].winner == self.boards[2].winner
             && self.boards[6].winner == self.boards[2].winner
         {
@@ -195,7 +195,7 @@ impl Board {
             self.update_state();
             self.last_move = None;
         } else {
-            if self.boards[pos2.index()].winner != Player::Open {
+            if self.boards[pos2.index()].winner.resolved() {
                 self.last_move = None;
             } else {
                 self.last_move = Some(pos2);
@@ -212,11 +212,11 @@ impl Board {
         self.boards[pos1.index()].tiles[pos2.index()]
     }
     pub fn clickable(&self, pos1: Pos, pos2: Pos) -> bool {
-        if self.winner != Player::Open {
+        if self.winner.resolved() {
             return false;
         }
 
-        if self.boards[pos1.index()].tiles[pos2.index()] != Player::Open {
+        if self.boards[pos1.index()].tiles[pos2.index()].resolved() {
             return false;
         }
         match self.last_move {
@@ -226,7 +226,7 @@ impl Board {
         }
     }
     pub fn clickable_board(&self, pos: Pos) -> bool {
-        if self.winner != Player::Open {
+        if self.winner.resolved() {
             return false;
         }
         if self.boards[pos.index()].full() {
@@ -240,6 +240,15 @@ impl Board {
         }
     }
     pub fn resolved(&self, pos: Pos) -> bool {
-        self.boards[pos.index()].winner != Player::Open
+        self.boards[pos.index()].winner.resolved()
+    }
+
+    pub fn tied(&self) -> bool {
+        self.boards
+            .iter()
+            .filter(|x| !x.full())
+            .collect::<Vec<_>>()
+            .len()
+            == 0
     }
 }
