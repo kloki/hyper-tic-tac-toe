@@ -51,6 +51,9 @@ div.sub-board {
 }
 
 div.sub {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background-color: #70807a;
   border-color: #47524e;
   border-style: solid;
@@ -60,7 +63,6 @@ div.sub {
   font-size: 40px;
   width: 80px;
   height: 80px;
-  cursor: pointer;
 }
 
 .lu {
@@ -120,6 +122,33 @@ div.sub {
   border-right-width: 0px;
 }
 
-div.sub:hover {
-  color: red;
+div.player_a {
+  color: #d35fe8;
+}
+
+div.player_b {
+  color: #0abf80;
+}
+
+div.clickable {
+  cursor: pointer;
+}
+
+div.sub-board.player_a {
+  background-color: #d35fe8;
+}
+
+div.sub-board.player_b {
+  background-color: #0abf80;
+}
+div.sub-board.resolved {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #70807a;
+  border-color: #47524e;
+  border-style: solid;
+  width: 240px;
+  height: 240px;
+  font-size: 150px;
 }

@@ -1,74 +1,79 @@
 #![allow(non_snake_case)]
-
 use dioxus::prelude::*;
 
-#[derive(PartialEq)]
-pub enum Pos {
-    LU,
-    MU,
-    RU,
-    LM,
-    MM,
-    RM,
-    LD,
-    MD,
-    RD,
-}
-
-impl Pos {
-    fn class(&self) -> &str {
-        match self {
-            Pos::LU => "lu",
-            Pos::MU => "mu",
-            Pos::RU => "ru",
-            Pos::LM => "lm",
-            Pos::MM => "mm",
-            Pos::RM => "rm",
-            Pos::LD => "ld",
-            Pos::MD => "md",
-            Pos::RD => "rd",
-        }
-    }
-}
+use crate::game::{
+    Board,
+    Pos,
+};
 
 pub fn App(cx: Scope) -> Element {
+    let board = use_ref(cx, || Board::new());
     cx.render(rsx! {
         div {
             style { include_str!("../src/style.css") }
-            header { span{ class:"highlight","HYPER"} " tic-tac-toe" }
-            div { class: "content", div {class: "board",
-                Tile{pos: Pos::LU}
-                Tile{pos: Pos::MU}
-                Tile{pos: Pos::RU}
-                Tile{pos: Pos::LM}
-                Tile{pos: Pos::MM}
-                Tile{pos: Pos::RM}
-                Tile{pos: Pos::LD}
-                Tile{pos: Pos::MD}
-                Tile{pos: Pos::RD}
-            } }
+            header {
+                span { class: "highlight", "HYPER" }
+                " tic-tac-toe"
+            }
+            div { class: "content",
+                div { class: "board",
+                    Tile { pos: Pos::LU, board: board }
+                    Tile { pos: Pos::MU, board: board }
+                    Tile { pos: Pos::RU, board: board }
+                    Tile { pos: Pos::LM, board: board }
+                    Tile { pos: Pos::MM, board: board }
+                    Tile { pos: Pos::RM, board: board }
+                    Tile { pos: Pos::LD, board: board }
+                    Tile { pos: Pos::MD, board: board }
+                    Tile { pos: Pos::RD, board: board }
+                }
+            }
         }
     })
 }
 
 #[inline_props]
-fn Tile(cx: Scope, pos: Pos) -> Element {
+fn Tile<'a>(cx: Scope, pos: Pos, board: &'a UseRef<Board>) -> Element {
+    let b = board.read();
+    let mut border_class = "";
+
+    if b.resolved(*pos) {
+        let winner = b.boards[pos.index()].winner;
+        return cx.render(rsx! {div { class: "sub-board resolved {pos.class()} {winner.class()}", "{winner.value()}" }});
+    }
+
+    if b.clickable_board(*pos) {
+        border_class = b.current.class()
+    }
     cx.render(rsx! {
-            div{ class:"sub-board {pos.class()}",
-                SubTile{pos: Pos::LU}
-                SubTile{pos: Pos::MU}
-                SubTile{pos: Pos::RU}
-                SubTile{pos: Pos::LM}
-                SubTile{pos: Pos::MM}
-                SubTile{pos: Pos::RM}
-                SubTile{pos: Pos::LD}
-                SubTile{pos: Pos::MD}
-                SubTile{pos: Pos::RD}
-            }
+        div { class: "sub-board {pos.class()} {border_class}",
+            SubTile { pos1: *pos, pos2: Pos::LU, board: board }
+            SubTile { pos1: *pos, pos2: Pos::MU, board: board }
+            SubTile { pos1: *pos, pos2: Pos::RU, board: board }
+            SubTile { pos1: *pos, pos2: Pos::LM, board: board }
+            SubTile { pos1: *pos, pos2: Pos::MM, board: board }
+            SubTile { pos1: *pos, pos2: Pos::RM, board: board }
+            SubTile { pos1: *pos, pos2: Pos::LD, board: board }
+            SubTile { pos1: *pos, pos2: Pos::MD, board: board }
+            SubTile { pos1: *pos, pos2: Pos::RD, board: board }
+        }
     })
 }
 
 #[inline_props]
-fn SubTile(cx: Scope, pos: Pos) -> Element {
-    cx.render(rsx! {div {class:"sub {pos.class()}" , "X" }})
+fn SubTile<'a>(cx: Scope, pos1: Pos, pos2: Pos, board: &'a UseRef<Board>) -> Element {
+    let b = board.read();
+    let state = b.get(*pos1, *pos2);
+    if b.clickable(*pos1, *pos2) {
+        return cx.render(rsx! {
+            div {
+                class: "sub {pos2.class()} clickable",
+                onclick: move |_| board.write().set(*pos1, *pos2),
+                "{state.value()}"
+            }
+        });
+    }
+
+    return cx
+        .render(rsx! { div { class: "sub {pos2.class()} {state.class()}", "{state.value()}" } });
 }
