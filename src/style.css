@@ -4,7 +4,7 @@
 }
 body {
   background-color: #70807a;
-  color: #d35fe8;
+  color: #47524e;
   font-size: 100%;
   margin: 0;
   padding: 0;
@@ -15,14 +15,17 @@ span.highlight {
   font-size: 300%;
 }
 div.banner {
+  color: #d35fe8;
   background-color: #47524e;
   text-align: center;
   font-size: 100%;
-  cursor: pointer;
 }
 
+div.bottom {
+  display: flex;
+  justify-content: end;
+}
 div.content {
-  width: 820px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -44,8 +47,8 @@ div.message {
 
 div.board {
   font-size: 500%;
-  height: 820px;
-  width: 820px;
+  height: 830px;
+  width: 830px;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(3, 1fr);
@@ -68,6 +71,7 @@ div.sub-board {
 }
 
 div.sub {
+  transition: width 2s, height 2s, transform 2s;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -139,19 +143,19 @@ div.sub {
   border-right-width: 0px;
 }
 
-.player_a {
+.player_b {
   color: #d35fe8;
 }
 
-.player_b {
+.player_a {
   color: #0abf80;
 }
 
-div.player_a {
+div.player_b {
   color: #d35fe8;
 }
 
-div.player_b {
+div.player_a {
   color: #0abf80;
 }
 
@@ -159,11 +163,11 @@ div.clickable {
   cursor: pointer;
 }
 
-div.sub-board.player_a {
+div.sub-board.player_b {
   background-color: #d35fe8;
 }
 
-div.sub-board.player_b {
+div.sub-board.player_a {
   background-color: #0abf80;
 }
 div.sub-board.resolved {
@@ -176,4 +180,21 @@ div.sub-board.resolved {
   width: 240px;
   height: 240px;
   font-size: 150px;
+}
+button,
+a {
+  font-size: 100%;
+  margin: 5px;
+  padding: 5px;
+  border: none;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  cursor: pointer;
+  color: #70807a;
+  background-color: #47524e;
+}
+
+button:hover {
+  color: #0abf80;
 }

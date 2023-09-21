@@ -29,6 +29,13 @@ pub fn App(cx: Scope) -> Element {
                         Tile { pos: Pos::MD, board: board }
                         Tile { pos: Pos::RD, board: board }
                     }
+                    div { class: "bottom",
+                        a { href: "https://github.com/kloki/hyper-tic-tac-toe", "code" }
+                        a { href: "https://en.wikipedia.org/wiki/Ultimate_tic-tac-toe",
+                            "wiki"
+                        }
+                        button { onclick: move |_| board.set(Board::new()), "reset" }
+                    }
                 }
             }
         }
